@@ -21,5 +21,6 @@ export class Application {
 
         eventsModule.emit();
         eventsModule.emitWithArguments();
+        eventsModule.emitThenDetach()
     }
 }

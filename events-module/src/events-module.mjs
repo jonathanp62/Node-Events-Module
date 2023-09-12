@@ -20,17 +20,57 @@ export class EventsModule {
         const emitter = new EventEmitter();
 
         emitter.on('saved', () => {
-            console.log('A saved event occured');
+            console.log('A saved event occurred');
         });
 
-        emitter.emit('saved')
+        emitter.emit('saved');
     }
 
     /**
      * Emit an event with arguments.
      */
     emitWithArguments() {
-        console.log('Emit with arguments');
+        const emitter = new EventEmitter();
+
+        emitter.on('saved', (arg) => {
+            console.log(`A saved event occurred: name: ${arg.name}, id: ${arg.id}`);
+        });
+
+        emitter.emit('saved', {
+            id: 1,
+            name: 'John Doe'
+        });
+    }
+
+    /**
+     * Emit an event with arguments
+     * then detach the event listener.
+     */
+    emitThenDetach() {
+        /**
+         * Log the event.
+         *
+         * @param   arg
+         */
+        function log(arg) {
+            console.log(`A saved event occurred: name: ${arg.name}, id: ${arg.id}`);
+        }
+
+        const emitter = new EventEmitter();
+
+        emitter.on('saved', log);
+
+        emitter.emit('saved', {
+            id: 2,
+            name: 'Jane Doe'
+        });
+
+        emitter.off('saved', log);
+
+        emitter.emit('saved', {
+            id: 3,
+            name: 'Susie Doe'
+        }); // This event is not emitted
     }
 }
 
