@@ -8,6 +8,7 @@
  */
 
 import { EventEmitter } from 'events';
+import { Stock } from './stock.mjs';
 
 /**
  * The events module class.
@@ -50,7 +51,7 @@ export class EventsModule {
         /**
          * Log the event.
          *
-         * @param   arg
+         * @param   {{string, string}}  arg
          */
         function log(arg) {
             console.log(`A saved event occurred: name: ${arg.name}, id: ${arg.id}`);
@@ -71,6 +72,19 @@ export class EventsModule {
             id: 3,
             name: 'Susie Doe'
         }); // This event is not emitted
+    }
+
+    /**
+     * Emit an event when a data value changes.
+     */
+    emitOnDataChange() {
+        const stock = new Stock('AAPL', 700);
+
+        stock.on('PriceChanged', (arg) => {
+            console.log(`The price of the stock ${arg.symbol} has changed ${arg.adjustment}%`);
+        });
+
+        stock.price = 720;
     }
 }
 

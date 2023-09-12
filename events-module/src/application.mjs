@@ -17,10 +17,11 @@ export class Application {
      * The run method.
      */
     run() {
-        let eventsModule = new EventsModule();
+        const eventsModule = new EventsModule();
 
         eventsModule.emit();
         eventsModule.emitWithArguments();
         eventsModule.emitThenDetach()
+        eventsModule.emitOnDataChange();
     }
 }
